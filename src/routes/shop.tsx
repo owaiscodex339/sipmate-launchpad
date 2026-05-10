@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PRODUCTS, getProduct } from "@/lib/product";
-import { Minus, Plus, Check } from "lucide-react";
+import { Minus, Plus, Check, Truck, Banknote, Landmark } from "lucide-react";
 
 const shopSearchSchema = z.object({
   product: z.string().optional(),
