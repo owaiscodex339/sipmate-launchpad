@@ -10,9 +10,8 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="SipMate logo" width={40} height={40} className="h-9 w-9 rounded-lg object-cover" />
-          <span className="font-display text-xl font-semibold tracking-tight">SipMate</span>
+        <Link to="/" className="flex items-center">
+          <img src={logo} alt="SipMate — Blend. Brew. Sip. Go." className="h-12 w-auto object-contain" />
         </Link>
         <nav className="flex items-center gap-2 sm:gap-4">
           <Link to="/" className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline">Home</Link>
