@@ -14,7 +14,7 @@ export const PRODUCTS: Product[] = [
   {
     id: "sipmate-2in1",
     name: "SipMate 2-in-1 Portable Tea Maker + Juicer",
-    price: 8000,
+    price: 7999,
     currency: "INR",
     tagline: "Two functions. One smart design. Brew hot tea or blend fresh juice — anywhere.",
     image: sipmate2in1Img,
