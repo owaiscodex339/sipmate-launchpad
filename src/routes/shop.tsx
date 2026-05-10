@@ -97,23 +97,25 @@ function ShopPage() {
       <div className="mx-auto max-w-6xl px-4 py-12">
         <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">← Back to home</Link>
 
-        {/* Product picker */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          {PRODUCTS.map((p) => (
-            <Link
-              key={p.id}
-              to="/shop"
-              search={{ product: p.id }}
-              className={`rounded-full border px-4 py-2 text-sm transition ${
-                p.id === product.id
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-card text-foreground hover:border-primary/50"
-              }`}
-            >
-              {p.name}
-            </Link>
-          ))}
-        </div>
+        {/* Product picker (shown when there are multiple products) */}
+        {PRODUCTS.length > 1 && (
+          <div className="mt-6 flex flex-wrap gap-2">
+            {PRODUCTS.map((p) => (
+              <Link
+                key={p.id}
+                to="/shop"
+                search={{ product: p.id }}
+                className={`rounded-full border px-4 py-2 text-sm transition ${
+                  p.id === product.id
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-foreground hover:border-primary/50"
+                }`}
+              >
+                {p.name}
+              </Link>
+            ))}
+          </div>
+        )}
 
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1.2fr]">
           {/* Product */}
