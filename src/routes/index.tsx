@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Battery, Droplets, Leaf, Sparkles, Plane, ShieldCheck } from "lucide-react";
 import heroImg from "@/assets/sipmate-hero.jpg";
+import { PRODUCTS } from "@/lib/product";
 
 export const Route = createFileRoute("/")({
   component: Home,
