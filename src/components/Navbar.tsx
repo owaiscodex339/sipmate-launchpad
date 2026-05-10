@@ -11,7 +11,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="SipMate — Blend. Brew. Sip. Go." className="h-12 w-auto object-contain" />
+          <img src={logo} alt="SipMate — Blend. Brew. Sip. Go." className="h-12 w-auto object-contain mix-blend-multiply dark:mix-blend-screen dark:invert" />
         </Link>
         <nav className="flex items-center gap-2 sm:gap-4">
           <Link to="/" className="hidden text-sm text-muted-foreground hover:text-foreground sm:inline">Home</Link>
