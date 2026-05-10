@@ -1,5 +1,4 @@
-import sipmateTeaImg from "@/assets/sipmate-hero.jpg";
-import sipmateCoolImg from "@/assets/sipmate-cool-hero.jpg";
+import sipmate2in1Img from "@/assets/sipmate-2in1.jpeg";
 
 export type Product = {
   id: string;
@@ -13,33 +12,19 @@ export type Product = {
 
 export const PRODUCTS: Product[] = [
   {
-    id: "sipmate-tea",
-    name: "SipMate Portable Tea Maker",
-    price: 79,
+    id: "sipmate-2in1",
+    name: "SipMate 2-in-1 Portable Tea Maker + Juicer",
+    price: 99,
     currency: "USD",
-    tagline: "USB-rechargeable. Boils water and brews loose-leaf or bagged tea, anywhere.",
-    image: sipmateTeaImg,
+    tagline: "Two functions. One smart design. Brew hot tea or blend fresh juice — anywhere.",
+    image: sipmate2in1Img,
     features: [
-      "Compact & travel-friendly",
-      "Stainless steel infuser",
-      "Auto-shutoff safety sensor",
-      "USB-C fast charging",
-      "30-day money-back guarantee",
-    ],
-  },
-  {
-    id: "sipmate-cool",
-    name: "SipMate Cool — Juice & Cold Drink Flask",
-    price: 59,
-    currency: "USD",
-    tagline: "Vacuum-insulated flask that keeps juices and cold drinks chilled for up to 24 hours.",
-    image: sipmateCoolImg,
-    features: [
-      "24-hour cold retention",
-      "Double-wall vacuum insulation",
-      "BPA-free food-grade interior",
-      "Leak-proof twist cap",
-      "30-day money-back guarantee",
+      "2-in-1: Tea Maker + Juicer / Blender",
+      "USB-C rechargeable — 2000mAh battery",
+      "350ml capacity, BPA-free materials",
+      "100W heating (Tea) · 150W motor (Juicer)",
+      "Safety sensor & safety lock built-in",
+      "Compact, travel-friendly design",
     ],
   },
 ];
@@ -47,5 +32,4 @@ export const PRODUCTS: Product[] = [
 export const getProduct = (id: string): Product =>
   PRODUCTS.find((p) => p.id === id) ?? PRODUCTS[0];
 
-// Backward-compat default product
 export const PRODUCT = PRODUCTS[0];
