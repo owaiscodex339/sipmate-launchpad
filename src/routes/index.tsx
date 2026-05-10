@@ -53,7 +53,7 @@ function Home() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" variant="secondary" asChild className="shadow-[var(--shadow-soft)]">
-                <Link to="/shop">Order now — ${product.price}</Link>
+                <Link to="/shop">Order now — Rs {product.price}</Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 hover:text-primary-foreground">
                 <Link to="/shop">Learn more</Link>

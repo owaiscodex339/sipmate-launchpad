@@ -126,7 +126,7 @@ function ShopPage() {
             <div>
               <h1 className="text-3xl font-semibold">{product.name}</h1>
               <p className="mt-2 text-muted-foreground">{product.tagline}</p>
-              <div className="mt-4 text-3xl font-semibold text-primary">${product.price}</div>
+              <div className="mt-4 text-3xl font-semibold text-primary">Rs {product.price}</div>
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
                 {product.features.map(b => (
                   <li key={b} className="flex items-center gap-2"><Check className="h-4 w-4 text-primary" />{b}</li>
@@ -164,11 +164,11 @@ function ShopPage() {
 
             <div className="flex items-center justify-between border-t border-border pt-4">
               <span className="text-sm text-muted-foreground">Total</span>
-              <span className="text-2xl font-semibold">${total}.00</span>
+              <span className="text-2xl font-semibold">Rs {total}</span>
             </div>
 
             <Button type="submit" size="lg" className="w-full" disabled={submitting}>
-              {submitting ? "Placing order…" : `Place order — $${total}`}
+              {submitting ? "Placing order…" : `Place order — Rs ${total}`}
             </Button>
           </form>
         </div>
