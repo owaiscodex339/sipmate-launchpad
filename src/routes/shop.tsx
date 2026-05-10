@@ -133,6 +133,13 @@ function ShopPage() {
                   <li key={b} className="flex items-center gap-2"><Check className="h-4 w-4 text-primary" />{b}</li>
                 ))}
               </ul>
+              <div className="mt-6 flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/10 p-4 text-sm">
+                <Truck className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="font-semibold text-foreground">Free delivery across Pakistan</div>
+                  <div className="text-muted-foreground">Ships in 2–4 business days. No hidden fees.</div>
+                </div>
+              </div>
             </div>
           </div>
 
