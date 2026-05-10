@@ -40,6 +40,7 @@ function ShopPage() {
   const [qty, setQty] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [defaults, setDefaults] = useState<Record<string, string>>({});
+  const [payment, setPayment] = useState<"cod" | "bank">("cod");
 
   useEffect(() => {
     if (!authLoading && !user) navigate({ to: "/auth" });
