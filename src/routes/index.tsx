@@ -85,6 +85,33 @@ function Home() {
         </div>
       </section>
 
+      {/* Products */}
+      <section className="mx-auto max-w-6xl px-4 pb-8">
+        <div className="mb-10 max-w-2xl">
+          <h2 className="text-3xl font-semibold sm:text-4xl">Our products</h2>
+          <p className="mt-3 text-muted-foreground">Hot or cold — sip the way you like, on the go.</p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {PRODUCTS.map((p) => (
+            <div key={p.id} className="group flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-card)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]">
+              <div className="bg-[image:var(--gradient-warm)] p-6">
+                <img src={p.image} alt={p.name} loading="lazy" width={1024} height={1024} className="mx-auto w-full max-w-xs rounded-2xl" />
+              </div>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="text-xl font-semibold">{p.name}</h3>
+                <p className="mt-2 flex-1 text-sm text-muted-foreground">{p.tagline}</p>
+                <div className="mt-4 flex items-center justify-between">
+                  <span className="text-2xl font-semibold text-primary">${p.price}</span>
+                  <Button asChild>
+                    <Link to="/shop" search={{ product: p.id }}>Order now</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="mx-auto max-w-6xl px-4 pb-24">
         <div className="overflow-hidden rounded-3xl bg-[image:var(--gradient-primary)] p-10 text-primary-foreground shadow-[var(--shadow-soft)] md:p-16">
