@@ -175,6 +175,56 @@ function ShopPage() {
               <span className="text-2xl font-semibold">Rs {total}</span>
             </div>
 
+            <div className="space-y-3">
+              <div>
+                <h3 className="text-sm font-semibold">Payment method</h3>
+                <p className="text-xs text-muted-foreground">Choose how you'd like to pay</p>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => setPayment("cod")}
+                  className={`flex items-start gap-3 rounded-xl border p-4 text-left transition ${
+                    payment === "cod"
+                      ? "border-primary bg-primary/10 ring-2 ring-primary/40"
+                      : "border-border bg-card hover:border-primary/50"
+                  }`}
+                >
+                  <Banknote className="mt-0.5 h-5 w-5 text-primary" />
+                  <div>
+                    <div className="text-sm font-semibold">Cash on Delivery</div>
+                    <div className="text-xs text-muted-foreground">Pay in cash when your order arrives.</div>
+                  </div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPayment("bank")}
+                  className={`flex items-start gap-3 rounded-xl border p-4 text-left transition ${
+                    payment === "bank"
+                      ? "border-primary bg-primary/10 ring-2 ring-primary/40"
+                      : "border-border bg-card hover:border-primary/50"
+                  }`}
+                >
+                  <Landmark className="mt-0.5 h-5 w-5 text-primary" />
+                  <div>
+                    <div className="text-sm font-semibold">Bank Transfer</div>
+                    <div className="text-xs text-muted-foreground">We'll share account details after order confirmation.</div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div className="space-y-2 border-t border-border pt-4">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>Delivery</span>
+                <span className="font-medium text-primary">FREE</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Total</span>
+                <span className="text-2xl font-semibold">Rs {total}</span>
+              </div>
+            </div>
+
             <Button type="submit" size="lg" className="w-full" disabled={submitting}>
               {submitting ? "Placing order…" : `Place order — Rs ${total}`}
             </Button>
