@@ -25,6 +25,7 @@ export type Database = {
           id: string
           phone: string
           postal_code: string
+          product_id: string
           quantity: number
           state: string
           status: string
@@ -41,6 +42,7 @@ export type Database = {
           id?: string
           phone: string
           postal_code: string
+          product_id?: string
           quantity?: number
           state: string
           status?: string
@@ -57,6 +59,7 @@ export type Database = {
           id?: string
           phone?: string
           postal_code?: string
+          product_id?: string
           quantity?: number
           state?: string
           status?: string

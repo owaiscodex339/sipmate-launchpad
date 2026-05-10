@@ -8,13 +8,17 @@ import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { PRODUCT } from "@/lib/product";
-import heroImg from "@/assets/sipmate-hero.jpg";
+import { PRODUCTS, getProduct } from "@/lib/product";
 import { Minus, Plus, Check } from "lucide-react";
+
+const shopSearchSchema = z.object({
+  product: z.string().optional(),
+});
 
 export const Route = createFileRoute("/shop")({
   component: ShopPage,
-  head: () => ({ meta: [{ title: "Order SipMate — Portable Tea Maker" }] }),
+  validateSearch: shopSearchSchema,
+  head: () => ({ meta: [{ title: "Order SipMate — Portable Tea Maker & Cool Flask" }] }),
 });
 
 const orderSchema = z.object({
@@ -31,6 +35,8 @@ const orderSchema = z.object({
 function ShopPage() {
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const search = Route.useSearch();
+  const product = getProduct(search.product ?? "sipmate-tea");
   const [qty, setQty] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [defaults, setDefaults] = useState<Record<string, string>>({});
@@ -55,7 +61,7 @@ function ShopPage() {
     });
   }, [user]);
 
-  const total = PRODUCT.price * qty;
+  const total = product.price * qty;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,11 +72,11 @@ function ShopPage() {
     if (!parsed.success) { toast.error(parsed.error.issues[0].message); return; }
     setSubmitting(true);
 
-    // Save profile snapshot
     await supabase.from("profiles").upsert({ id: user.id, ...parsed.data });
 
     const { error } = await supabase.from("orders").insert({
       user_id: user.id,
+      product_id: product.id,
       quantity: qty,
       total_amount: total,
       ...parsed.data,
@@ -91,18 +97,36 @@ function ShopPage() {
       <div className="mx-auto max-w-6xl px-4 py-12">
         <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">← Back to home</Link>
 
+        {/* Product picker */}
+        <div className="mt-6 flex flex-wrap gap-2">
+          {PRODUCTS.map((p) => (
+            <Link
+              key={p.id}
+              to="/shop"
+              search={{ product: p.id }}
+              className={`rounded-full border px-4 py-2 text-sm transition ${
+                p.id === product.id
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-border bg-card text-foreground hover:border-primary/50"
+              }`}
+            >
+              {p.name}
+            </Link>
+          ))}
+        </div>
+
         <div className="mt-6 grid gap-10 lg:grid-cols-[1fr_1.2fr]">
           {/* Product */}
           <div className="space-y-6">
             <div className="overflow-hidden rounded-3xl bg-[image:var(--gradient-warm)] p-6 shadow-[var(--shadow-card)]">
-              <img src={heroImg} alt="SipMate Portable Tea Maker" width={1280} height={1280} className="mx-auto w-full max-w-sm rounded-2xl" />
+              <img src={product.image} alt={product.name} width={1280} height={1280} className="mx-auto w-full max-w-sm rounded-2xl" />
             </div>
             <div>
-              <h1 className="text-3xl font-semibold">{PRODUCT.name}</h1>
-              <p className="mt-2 text-muted-foreground">USB-rechargeable. Boils water and brews loose-leaf or bagged tea, anywhere.</p>
-              <div className="mt-4 text-3xl font-semibold text-primary">${PRODUCT.price}</div>
+              <h1 className="text-3xl font-semibold">{product.name}</h1>
+              <p className="mt-2 text-muted-foreground">{product.tagline}</p>
+              <div className="mt-4 text-3xl font-semibold text-primary">${product.price}</div>
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
-                {["Compact & travel-friendly","Stainless steel infuser","Auto-shutoff safety sensor","USB-C fast charging","30-day money-back guarantee"].map(b => (
+                {product.features.map(b => (
                   <li key={b} className="flex items-center gap-2"><Check className="h-4 w-4 text-primary" />{b}</li>
                 ))}
               </ul>
