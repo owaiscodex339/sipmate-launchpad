@@ -84,7 +84,7 @@ function ShopPage() {
     });
     setSubmitting(false);
     if (error) { toast.error(error.message); return; }
-    toast.success("Order placed! We'll be in touch shortly.");
+    toast.success(payment === "cod" ? "Order placed! Pay cash on delivery." : "Order placed! We'll share bank details shortly.");
     navigate({ to: "/orders" });
   };
 
