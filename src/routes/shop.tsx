@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PRODUCTS, getProduct } from "@/lib/product";
-import { Minus, Plus, Check, Truck, Banknote, Landmark } from "lucide-react";
+import { Minus, Plus, Check, Truck, Banknote } from "lucide-react";
 
 const shopSearchSchema = z.object({
   product: z.string().optional(),
@@ -40,7 +40,7 @@ function ShopPage() {
   const [qty, setQty] = useState(1);
   const [submitting, setSubmitting] = useState(false);
   const [defaults, setDefaults] = useState<Record<string, string>>({});
-  const [payment, setPayment] = useState<"cod" | "bank">("cod");
+  const DELIVERY_FEE = 200;
 
   useEffect(() => {
     if (!authLoading && !user) navigate({ to: "/auth" });
@@ -62,7 +62,8 @@ function ShopPage() {
     });
   }, [user]);
 
-  const total = product.price * qty;
+  const subtotal = product.price * qty;
+  const total = subtotal + DELIVERY_FEE;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -84,7 +85,7 @@ function ShopPage() {
     });
     setSubmitting(false);
     if (error) { toast.error(error.message); return; }
-    toast.success(payment === "cod" ? "Order placed! Pay cash on delivery." : "Order placed! We'll share bank details shortly.");
+    toast.success("Order placed! Pay cash on delivery.");
     navigate({ to: "/orders" });
   };
 
@@ -136,8 +137,8 @@ function ShopPage() {
               <div className="mt-6 flex items-center gap-3 rounded-2xl border border-primary/30 bg-primary/10 p-4 text-sm">
                 <Truck className="h-5 w-5 text-primary" />
                 <div>
-                  <div className="font-semibold text-foreground">Free delivery across Pakistan</div>
-                  <div className="text-muted-foreground">Ships in 2–4 business days. No hidden fees.</div>
+                  <div className="font-semibold text-foreground">Delivery across Pakistan — Rs 200</div>
+                  <div className="text-muted-foreground">Ships in 2–4 business days.</div>
                 </div>
               </div>
             </div>
@@ -170,54 +171,28 @@ function ShopPage() {
               <div><Label htmlFor="country">Country</Label><Input id="country" name="country" defaultValue={defaults.country} required /></div>
             </div>
 
-            <div className="flex items-center justify-between border-t border-border pt-4">
-              <span className="text-sm text-muted-foreground">Total</span>
-              <span className="text-2xl font-semibold">Rs {total}</span>
-            </div>
-
             <div className="space-y-3">
               <div>
                 <h3 className="text-sm font-semibold">Payment method</h3>
-                <p className="text-xs text-muted-foreground">Choose how you'd like to pay</p>
+                <p className="text-xs text-muted-foreground">Cash on Delivery only</p>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <button
-                  type="button"
-                  onClick={() => setPayment("cod")}
-                  className={`flex items-start gap-3 rounded-xl border p-4 text-left transition ${
-                    payment === "cod"
-                      ? "border-primary bg-primary/10 ring-2 ring-primary/40"
-                      : "border-border bg-card hover:border-primary/50"
-                  }`}
-                >
-                  <Banknote className="mt-0.5 h-5 w-5 text-primary" />
-                  <div>
-                    <div className="text-sm font-semibold">Cash on Delivery</div>
-                    <div className="text-xs text-muted-foreground">Pay in cash when your order arrives.</div>
-                  </div>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setPayment("bank")}
-                  className={`flex items-start gap-3 rounded-xl border p-4 text-left transition ${
-                    payment === "bank"
-                      ? "border-primary bg-primary/10 ring-2 ring-primary/40"
-                      : "border-border bg-card hover:border-primary/50"
-                  }`}
-                >
-                  <Landmark className="mt-0.5 h-5 w-5 text-primary" />
-                  <div>
-                    <div className="text-sm font-semibold">Bank Transfer</div>
-                    <div className="text-xs text-muted-foreground">We'll share account details after order confirmation.</div>
-                  </div>
-                </button>
+              <div className="flex items-start gap-3 rounded-xl border border-primary bg-primary/10 p-4 ring-2 ring-primary/40">
+                <Banknote className="mt-0.5 h-5 w-5 text-primary" />
+                <div>
+                  <div className="text-sm font-semibold">Cash on Delivery</div>
+                  <div className="text-xs text-muted-foreground">Pay in cash when your order arrives.</div>
+                </div>
               </div>
             </div>
 
             <div className="space-y-2 border-t border-border pt-4">
               <div className="flex items-center justify-between text-sm text-muted-foreground">
+                <span>Subtotal</span>
+                <span>Rs {subtotal}</span>
+              </div>
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
                 <span>Delivery</span>
-                <span className="font-medium text-primary">FREE</span>
+                <span>Rs {DELIVERY_FEE}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Total</span>
